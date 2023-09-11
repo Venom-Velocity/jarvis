@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workspace</title>
+    <link rel="icon" type="images/Jheader.png" href="jlogo.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&display=swap">
+</head>
+<body>
+    <style>
+        body {
+            background:
+        linear-gradient(-90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px), 
+        linear-gradient(-90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(transparent 3px, #102D94 3px, #102D94 78px, transparent 78px),
+        linear-gradient(-90deg, #aaaaaa62 0.5px, transparent 0.5px),
+        linear-gradient(-90deg, transparent 3px, #102D94 3px, #102D94 78px, transparent 78px),
+        linear-gradient(#aaaaaa4d 0.5px, transparent 0.5px),
+        #102D94;
+        background-size:
+        10px 10px,
+        10px 10px,
+        80px 80px,
+        80px 80px,
+        80px 80px,
+        80px 80px,
+        80px 80px,
+        80px 80px;
+            margin: 0; /* Remove default margin */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Ensure the page takes the full viewport height */
+        }
+    .indigo {
+        position: fixed;
+        color: rgba(255, 255, 255, 0.517);
+        cursor: pointer;
+        text-decoration: none;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; /* Corrected the font-family */
+        top: 15px;
+        left: 20px;
+        user-select: none;
+    }
+
+    .indigo:hover {
+        color: rgba(255, 255, 255, 0.417);
+    }
+    .indigo:active{
+        color: rgba(255, 255, 255, 0.317);
+    }
+    .widget-1{
+        width: 500px;
+        height: 250px;
+        background-color: #0c2e3690;
+        color: #fff;
+        padding: 12px;
+        border-radius: 5px;
+        transform: scale(1);
+        animation: auto-zoom 0.5s ease forwards;
+        position: fixed;
+        cursor: grab;
+        
+
+    }
+
+        /* Define the animation keyframes */
+        @keyframes auto-zoom {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.4);
+            }
+        }
+    .widget-1-title{
+        font-size: 18px;
+        font-family: 'Montserrat';
+        margin-bottom: 10px;
+        background-color: #a82828c2;
+        padding: 3px;
+        user-select: none;
+    }
+    .weather-info {
+            font-size: 18px;
+            font-family: 'Montserrat';
+            position: relative;
+        }
+
+        /* Individual weather data styles */
+        .weather-data {
+            margin-top: 10px;
+            font-family: 'Montserrat';
+            user-select: none;
+        }
+        
+        /* Arrow shapes for the corners */
+        .arrow-top-left,
+        .arrow-top-right,
+        .arrow-bottom-left,
+        .arrow-bottom-right {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-color: transparent;
+        }
+
+        /* Border styles for arrows */
+        .arrow-top-left {
+            position: absolute;
+            top: 1px;
+            left: 1px;
+            width: 5px;
+            height: 5px;
+            border-top: 2px solid #ffffff9e;
+            border-right: 2px solid #ffffff9e;
+            transform: rotate(270deg);
+        }
+
+        .arrow-top-right {
+            position: absolute;
+            top: 1px;
+            right: 1px;
+            width: 5px;
+            height: 5px;
+            border-top: 2px solid #ffffff9e;
+            border-right: 2px solid #ffffff9e;
+        }
+
+        .arrow-bottom-left {
+            position: absolute;
+            bottom: 1px;
+            left: 1px;
+            width: 5px;
+            height: 5px;
+            border-top: 2px solid #ffffff9e;
+            border-right: 2px solid #ffffff9e;
+            transform: rotate(180deg);
+        }
+
+        .arrow-bottom-right {
+            position: absolute;
+            bottom: 1px;
+            right: 1px;
+            width: 5px;
+            height: 5px;
+            border-top: 2px solid #ffffff9e;
+            border-right: 2px solid #ffffff9e;
+            transform: rotate(90deg);
+        }
+        .divider {
+        width: 100%;
+        height: 1px;
+        background-color: #ffffff3c;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+</style>
+<div>
+    <a href="index.html" class="indigo" style="font-size: 40px;">&lt;</a>
+</div>
+    <div class="widget-1" id="draggable-widget">
+        <div class="arrow-top-left"></div>
+        <div class="arrow-top-right"></div>
+        <div class="arrow-bottom-left"></div>
+        <div class="arrow-bottom-right"></div>
+        <div class="widget-1-title">EXAMPLE</div>
+        <div class="divider"></div>
+        <div class="widget-1-info">
+            <div class="weather-data">
+                <strong>Today:</strong> Sunny
+            </div>
+            <div class="weather-data">
+                <strong>Temperature:</strong> 72°F
+            </div>
+            <div class="weather-data">
+                <strong>Humidity:</strong> 45%
+            </div>  
+        </div>
+    </div>
+    <script>
+        // JavaScript for enabling drag-and-drop functionality
+        const widget = document.getElementById("draggable-widget");
+        let offsetX, offsetY, isDragging = false;
+    
+        widget.addEventListener("mousedown", (e) => {
+            isDragging = true;
+            offsetX = e.clientX - widget.getBoundingClientRect().left;
+            offsetY = e.clientY - widget.getBoundingClientRect().top;
+            widget.style.cursor = "grabbing"; // Change cursor style
+        });
+    
+        document.addEventListener("mousemove", (e) => {
+            if (!isDragging) return;
+            const newX = e.clientX - offsetX;
+            const newY = e.clientY - offsetY;
+    
+            // Update widget position
+            widget.style.left = `${newX}px`;
+            widget.style.top = `${newY}px`;
+        });
+    
+        document.addEventListener("mouseup", () => {
+            isDragging = false;
+            widget.style.cursor = "grab"; // Restore cursor style
+        });
+    </script>
+</body>
+</html>
